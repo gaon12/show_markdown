@@ -16,9 +16,9 @@
 3. **<code>file://</code>** 프로토콜에서는 **<code>CORS</code>** 오류가 발생하여 정상적으로 작동되지 않습니다. 그래서 <code>file://</code> 프로토콜에서 실행하는 경우, <code>Not available on the 'file://' protocol.</code> 알림창이 뜨도록 했습니다.
 
 # 사용 방법
-<code>read_md(파일명, 출력할 div의 id);</code> 형식으로 입력하면 됩니다.
+<code>read_md("파일명", "출력할 div의 id");</code> 형식으로 입력하면 됩니다.
 
-예 : <code>read_md(README.md, repo_div);</code>
+예 : <code>read_md("README.md", "repo_div");</code>
 
 # 라이선스
 MIT 라이선스로 배포됩니다.
