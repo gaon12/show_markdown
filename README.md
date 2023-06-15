@@ -11,7 +11,7 @@
 
 # 주의사항
 1. 의존성이 있으므로 **반.드.시!** marked 자바스크립트를 불러오시기 바랍니다.
-<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<code><script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script></code>
 2. 위의 의존성 문단에 적혀져 있는 순서대로 코드를 작성하시기 바랍니다.
 3. **<code>file://</code>** 프로토콜에서는 **<code>CORS</code>** 오류가 발생하여 정상적으로 작동되지 않습니다. 그래서 <code>file://</code> 프로토콜에서 실행하는 경우, <code>Not available on the 'file://' protocol.</code> 알림창이 뜨도록 했습니다.
 
@@ -36,9 +36,9 @@ This JavaScript function has a dependency that must be used concurrently with [m
 
 # Precautions
 1. There is dependency, so **van.de.si!** Please load the marked JavaScript.
-<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<code><script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script></code>
 2. Please write the code in the order listed in the dependency paragraph above.
-3. **<code>file://<code>** Protocol encountered a **<code>CORS</code>** error and did not work properly. So, if you are running on the <code>file://</code> protocol, the <code>Not available on the 'file://' protocol.</code> notification window appears.
+3. **<code>file://</code>** Protocol encountered a **<code>CORS</code>** error and did not work properly. So, if you are running on the <code>file://</code> protocol, the <code>Not available on the 'file://' protocol.</code> notification window appears.
 
 # How to use it
 Type <code>read_md (file name, id of div to output);</code> format.
