@@ -1,49 +1,123 @@
-# 이 저장소는 무엇인가요?
-마크다운 파일을 특정 div에 출력하는 read_md 함수를 제공합니다.
+# 📄 read_md.js
 
-# 의존성
-이 자바스크립트 함수는 [marked](https://github.com/markedjs/marked)와 동시에 사용해야 하는 의존성을 가지고 있습니다. 따라서 다음과 같은 순서대로 로드해야 합니다.
+Markdown 파일을 특정 div에 출력하는 `read_md` 함수를 제공합니다.  
+Provides a `read_md` function that renders a Markdown file into a specific `<div>` element.
 
-1. 마크다운 내용을 출력할 div(id가 설정되어 있어야 함.)
-2. marked 자바스크립트
-3. read_md 자바스크립트
-4. read_md 함수 호출
+자동으로 `marked.js`를 로드하며, 보안을 위한 XSS 방지 옵션(sanitize)도 지원합니다.  
+It automatically loads `marked.js` and optionally supports XSS protection via `DOMPurify`.
 
-# 주의사항
-1. 의존성이 있으므로 **반.드.시!** marked 자바스크립트를 불러오시기 바랍니다.
-<code><script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script></code>
-2. 위의 의존성 문단에 적혀져 있는 순서대로 코드를 작성하시기 바랍니다.
-3. **<code>file://</code>** 프로토콜에서는 **<code>CORS</code>** 오류가 발생하여 정상적으로 작동되지 않습니다. 그래서 <code>file://</code> 프로토콜에서 실행하는 경우, <code>Not available on the 'file://' protocol.</code> 알림창이 뜨도록 했습니다.
+---
 
-# 사용 방법
-<code>read_md("파일명", "출력할 div의 id");</code> 형식으로 입력하면 됩니다.
+## ✅ 주요 기능 | Features
 
-예 : <code>read_md("README.md", "repo_div");</code>
+- ✅ **의존성 자동 로딩**  
+  `marked.js`가 자동으로 로드되어 별도 `<script>`가 필요 없습니다.  
+  `marked.js` is automatically loaded — no need for manual `<script>` tag.
 
-# 라이선스
-MIT 라이선스로 배포됩니다.
+- ✅ **XSS 방지 지원**  
+  `sanitize: true` 옵션 사용 시 `DOMPurify`가 자동 로드되어 보안이 강화됩니다.  
+  With `sanitize: true`, `DOMPurify` is auto-loaded to enhance security.
 
-# What is this repository?
-Provides a read_md function that outputs a markdown file to a specific div.
+- ✅ **로컬 실행 차단**  
+  `file://` 프로토콜에서 실행 시 경고를 표시하며 동작하지 않도록 차단합니다.  
+  Prevents execution under `file://` to avoid CORS errors.
 
-# Dependency
-This JavaScript function has a dependency that must be used concurrently with [marked] (https://github.com/markedjs/marked) . Therefore, you must load in the following order.
+- ✅ **간편한 사용**  
+  `<script src="read_md.js"></script>` 한 줄로 즉시 사용 가능합니다.  
+  Just include `<script src="read_md.js"></script>` and you’re ready to go.
 
-1. Div to output markdown contents (id must be set)
-2. marked JavaScript
-3. read_md JavaScript
-4. Call read_md function
+---
 
-# Precautions
-1. There is dependency, so **van.de.si!** Please load the marked JavaScript.
-<code><script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script></code>
-2. Please write the code in the order listed in the dependency paragraph above.
-3. **<code>file://</code>** Protocol encountered a **<code>CORS</code>** error and did not work properly. So, if you are running on the <code>file://</code> protocol, the <code>Not available on the 'file://' protocol.</code> notification window appears.
+## 📦 사용 방법 | How to Use
 
-# How to use it
-Type <code>read_md (file name, id of div to output);</code> format.
+```html
+<!-- 1. 출력할 div를 생성합니다. -->
+<!-- 1. Create a target <div> -->
+<div id="markdown-output"></div>
 
-예 : <code>read_md(README.md, repo_div);</code>
+<!-- 2. read_md.js를 로드합니다. -->
+<!-- 2. Load read_md.js -->
+<script src="read_md.js"></script>
 
-# Licenses
-Distributed under the MIT license.
+<!-- 3. read_md() 함수를 호출합니다. -->
+<!-- 3. Call read_md() -->
+<script>
+	read_md("README.md", "markdown-output"); // 기본 사용
+	// read_md("README.md", "markdown-output", { sanitize: true }); // 보안 강화
+</script>
+```
+
+> `marked.min.js`는 직접 불러올 필요 없습니다. 자동으로 로드됩니다.  
+> You don’t need to manually load `marked.min.js`. It loads automatically.
+
+---
+
+## 🧩 함수 설명 | Function Signature
+
+```javascript
+read_md(file, targetId, options)
+```
+
+| 매개변수 (Parameter) | 설명 (Description)                                      |
+|----------------------|----------------------------------------------------------|
+| `file`               | 마크다운 파일 경로 (Markdown file path)                 |
+| `targetId`           | 출력할 div의 id (ID of the target div)                  |
+| `options.sanitize`   | (선택) true일 경우 DOMPurify로 XSS 필터링 (Optional XSS protection)
+
+---
+
+## 🛡️ 보안 옵션 (XSS 방지) | XSS Protection
+
+`sanitize: true` 옵션을 설정하면 [DOMPurify](https://github.com/cure53/DOMPurify)가 자동으로 로드되어  
+악성 스크립트로부터 HTML 출력을 안전하게 보호합니다.
+
+By enabling `sanitize: true`, [DOMPurify](https://github.com/cure53/DOMPurify) is loaded to prevent malicious scripts and ensure safe rendering.
+
+```javascript
+read_md("README.md", "markdown-output", { sanitize: true });
+```
+
+---
+
+## ⚠️ 주의사항 | Cautions
+
+- **file://** 프로토콜에서 실행하면 CORS 오류로 인해 작동하지 않으며, 경고 메시지가 표시됩니다.  
+  **Does not work under `file://` protocol** due to CORS; a warning will appear.
+
+- 출력 대상인 div는 반드시 `id` 속성이 있어야 합니다.  
+  The target element must have an `id`.
+
+---
+
+## 💡 예제 | Example
+
+```html
+<div id="content"></div>
+<script src="read_md.js"></script>
+<script>
+	read_md("docs/intro.md", "content", { sanitize: true });
+</script>
+```
+
+---
+
+## 📄 라이선스 | License
+
+MIT 라이선스로 배포됩니다.  
+Distributed under the MIT License.
+
+---
+
+## 📎 의존성 | Dependencies
+
+| 라이브러리 (Library) | 로딩 방식 (Loading)     | 설명 (Description)               |
+|----------------------|---------------------------|----------------------------------|
+| `marked`             | 자동 로드 (Auto-loaded)   | Markdown → HTML 변환             |
+| `DOMPurify`          | 옵션 사용 시 자동 로드    | HTML 정화 / XSS 방지             |
+
+---
+
+## 🤝 기여 | Contributing
+
+오탈자 수정, 기능 제안 등 자유롭게 PR과 이슈를 남겨주세요.  
+Feel free to open issues or pull requests for suggestions or fixes.
